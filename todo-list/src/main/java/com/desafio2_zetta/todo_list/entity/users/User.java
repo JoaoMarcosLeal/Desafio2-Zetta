@@ -38,6 +38,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    public User(String email, String password, String name, UserRole role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) {
