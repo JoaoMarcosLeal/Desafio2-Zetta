@@ -1,65 +1,81 @@
-# To-Do List API - Desafio Zetta
-Esta é uma API REST para gerenciamento de tarefas personalizadas, construída com as versões mais recentes do ecossistema Spring. A aplicação foca em segurança e produtividade, permitindo que cada usuário gerencie sua própria lista de afazeres de forma isolada e segura.
+# To-Do List API – Desafio Zetta
 
-Tecnologias e Versões
-De acordo com as especificações do projeto:
+Esta é uma API REST para gerenciamento de tarefas personalizadas, construída com as versões mais recentes do ecossistema Spring.  
+O restante da documentação, com exemplos e script de criação pode ser encontrada em: 
 
-Java 21: Utilizando as últimas funcionalidades da linguagem, como Records e melhorias de performance.
+https://docs.google.com/document/d/1AfqVkl5_L8GXXgYawDdh4EqTCVFklAqYdVkWWZbBBrc/edit?usp=sharing
+---
 
-Spring Boot 4.0.2: Versão mais recente do framework para alta escalabilidade.
+## Tecnologias e Versões
 
-Spring Security: Controle de acesso e proteção contra vulnerabilidades.
+- **Java 21**  
+  Utilizando as últimas funcionalidades da linguagem, como Records e melhorias de performance.
 
-JSON Web Token (auth0 java-jwt 4.5.0): Autenticação stateless robusta.
+- **Spring Boot 4.0.2**  
+  Versão mais recente do framework, garantindo alta escalabilidade e produtividade.
 
-PostgreSQL: Banco de dados relacional de alta confiabilidade usado em produção.
+- **Spring Security**  
+  Controle de acesso e proteção contra vulnerabilidades comuns.
 
-Project Lombok: Redução de código boilerplate como Getters, Setters e Construtores.
+- **JSON Web Token (auth0 java-jwt 4.5.0)**  
+  Autenticação stateless robusta e segura.
 
-Hibernate Validator 9.1.0: Validação rigorosa de dados de entrada.
+- **PostgreSQL**  
+  Banco de dados relacional de alta confiabilidade, utilizado em produção.
 
-Arquitetura de Segurança
+- **Project Lombok**  
+  Redução de código boilerplate como getters, setters e construtores.
+
+- **Hibernate Validator 9.1.0**  
+  Validação rigorosa dos dados de entrada da aplicação.
+
+---
+
+## Arquitetura de Segurança
+
 A API implementa um modelo de segurança baseado em camadas:
 
-Criptografia: As senhas são processadas via BCrypt antes de serem armazenadas.
+- **Criptografia**  
+  As senhas são processadas via BCrypt antes de serem armazenadas no banco de dados.
 
-Tokens: Emissão de tokens JWT com identificação de sessões sem estado.
+- **Tokens JWT**  
+  Emissão de tokens para identificação de sessões sem estado (stateless).
 
-Filtros Customizados: Um SecurityFilter intercepta cada requisição para validar a identidade do portador do token antes de permitir o acesso aos dados.
+---
 
-Isolamento de Proprietário: O sistema garante que um usuário não consiga acessar ou modificar as tarefas de terceiros através de verificações de ID em nível de serviço.
+## Principais Endpoints
 
-Principais Endpoints
-Autenticação
-POST /auth/register: Registro de novos usuários com definição de perfis (USER, ADMIN).
+### Autenticação
 
-POST /auth/login: Validação de credenciais e geração de token.
+- `POST /auth/register`  
+  Registro de novos usuários com definição de perfis (USER, ADMIN).
 
-Tarefas (Tasks)
-GET /tasks: Listagem completa das tarefas vinculadas ao usuário logado.
+- `POST /auth/login`  
+  Validação de credenciais e geração do token JWT.
 
-GET /tasks/filter?realizada=true: Filtro dinâmico de status para tarefas concluídas ou pendentes.
+---
 
-POST /tasks: Cadastro de nova tarefa, vinculada automaticamente ao usuário autenticado.
+### Tarefas (Tasks)
 
-PUT /tasks: Atualização de dados com validação de posse da tarefa.
+- `GET /tasks`  
+  Listagem completa das tarefas vinculadas exclusivamente ao usuário autenticado.
 
-DELETE /tasks/{id}: Remoção segura de registros específicos.
+- `GET /tasks/filter?realizada=true`  
+  Filtro dinâmico para tarefas concluídas ou pendentes.
 
-Usuários
-GET /users: Listagem administrativa protegida por UserResponseDTO para ocultar senhas.
+- `POST /tasks`  
+  Cadastro de nova tarefa, vinculada automaticamente ao usuário logado.
 
-Configuração de Desenvolvimento
-O projeto utiliza o Spring Boot DevTools, permitindo o reinício automático da aplicação durante o desenvolvimento ao detectar mudanças no código.
+- `PUT /tasks`  
+  Atualização de dados com validação de posse da tarefa.
 
-Para executar:
+- `DELETE /tasks/{id}`  
+  Remoção segura de tarefas pertencentes ao usuário.
 
-Certifique-se de ter um banco PostgreSQL configurado.
+---
 
-Ajuste as propriedades de conexão no arquivo application.properties.
+### Como executar o projeto 
 
-Execute via Maven:
-
-Bash
-
-./mvnw spring-boot:run
+3. Ajuste as configurações em src/main/resources/application.properties.
+4. Excecute a aplicação via Mavem: ./mvnw spring-boot:run. 
+5. Ajuste as propriedades de conexão (URL, usuário e senha) no arquivo:
