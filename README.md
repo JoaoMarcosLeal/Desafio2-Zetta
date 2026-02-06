@@ -73,9 +73,8 @@ A API implementa um modelo de segurança baseado em camadas:
   Remoção segura de tarefas pertencentes ao usuário.
 
 ---
-
+1. Certifique-se de ter um banco de dados PostgreSQL configurado e ativo.
+2. Ajuste as propriedades de conexão (URL, usuário e senha) no arquivo: src/main/resources/application.properties.
+3. Execute a aplicação via Maven: ./mvnw spring-boot:run.
 ### Como executar o projeto 
 
-3. Ajuste as configurações em src/main/resources/application.properties.
-4. Excecute a aplicação via Mavem: ./mvnw spring-boot:run. 
-5. Ajuste as propriedades de conexão (URL, usuário e senha) no arquivo:
