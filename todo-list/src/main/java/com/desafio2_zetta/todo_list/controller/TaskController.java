@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desafio2_zetta.todo_list.entity.tasks.Task;
@@ -44,6 +45,11 @@ public class TaskController {
     public List<TaskResponseDTO> delete(@PathVariable("id") Long id) {
         return taskService.delete(id);
 
+    }
+
+    @GetMapping("/filter")
+    public List<TaskResponseDTO> listByStatus(@RequestParam("realizada") boolean realizado) {
+        return taskService.listByStatus(realizado);
     }
 
 }

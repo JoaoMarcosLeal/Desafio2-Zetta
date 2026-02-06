@@ -67,4 +67,14 @@ public class TaskService {
         taskRepository.deleteById(id);
         return list();
     }
+
+    public List<TaskResponseDTO> listByStatus(boolean realizada) {
+        User user = getAuthenticatedUser();
+        Sort sort = Sort.by("prioridade").descending().and(Sort.by("nome").ascending());
+
+        return taskRepository.findByUserIdAndRealizada(user.getId(), realizada, sort)
+                .stream()
+                .map(TaskResponseDTO::new)
+                .toList();
+    }
 }

@@ -8,4 +8,6 @@ import com.desafio2_zetta.todo_list.entity.tasks.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByUserId(Long userId, org.springframework.data.domain.Sort sort);
+
+    List<Task> findByUserIdAndRealizada(Long userId, boolean realizada, org.springframework.data.domain.Sort sort);
 }
