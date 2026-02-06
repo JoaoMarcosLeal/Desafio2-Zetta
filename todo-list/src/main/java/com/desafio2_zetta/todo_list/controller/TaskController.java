@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafio2_zetta.todo_list.entity.Task;
+import com.desafio2_zetta.todo_list.entity.tasks.Task;
+import com.desafio2_zetta.todo_list.entity.tasks.TaskResponseDTO;
 import com.desafio2_zetta.todo_list.service.TaskService;
 
 @RestController
@@ -25,22 +26,22 @@ public class TaskController {
     }
 
     @PostMapping
-    public List<Task> create(@RequestBody Task task) {
+    public List<TaskResponseDTO> create(@RequestBody Task task) {
         return taskService.create(task);
     }
 
     @PutMapping
-    public List<Task> update(@RequestBody Task task) {
+    public List<TaskResponseDTO> update(@RequestBody Task task) {
         return taskService.update(task);
     }
 
     @GetMapping
-    public List<Task> list() {
+    public List<TaskResponseDTO> list() {
         return taskService.list();
     }
 
     @DeleteMapping("{id}")
-    public List<Task> delete(@PathVariable("id") Long id) {
+    public List<TaskResponseDTO> delete(@PathVariable("id") Long id) {
         return taskService.delete(id);
 
     }

@@ -1,4 +1,4 @@
-package com.desafio2_zetta.todo_list.entity;
+package com.desafio2_zetta.todo_list.entity.tasks;
 
 import com.desafio2_zetta.todo_list.entity.users.User;
 
@@ -31,4 +31,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public boolean isRealizada() {
+        return realizada;
+    };
 }

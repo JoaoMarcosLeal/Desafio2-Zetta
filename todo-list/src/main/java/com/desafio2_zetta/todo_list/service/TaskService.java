@@ -5,7 +5,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.desafio2_zetta.todo_list.entity.Task;
+import com.desafio2_zetta.todo_list.entity.tasks.Task;
+import com.desafio2_zetta.todo_list.entity.tasks.TaskResponseDTO;
 import com.desafio2_zetta.todo_list.entity.users.User;
 import com.desafio2_zetta.todo_list.repository.TaskRepository;
 
@@ -18,26 +19,29 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    // Método auxiliar para pegar o usuário logado de forma limpa
+    // Método auxiliar para pegar o usuário logado de forma 'limpa'
     private User getAuthenticatedUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public List<Task> create(Task task) {
+    public List<TaskResponseDTO> create(Task task) {
         // Vincula a tarefa ao usuário logado antes de salvar
         task.setUser(getAuthenticatedUser());
         taskRepository.save(task);
         return list();
     }
 
-    public List<Task> list() {
+    public List<TaskResponseDTO> list() {
         User user = getAuthenticatedUser();
         Sort sort = Sort.by("prioridade").descending().and(Sort.by("nome").ascending());
 
-        return taskRepository.findByUserId(user.getId(), sort);
+        return taskRepository.findByUserId(user.getId(), sort)
+                .stream()
+                .map(TaskResponseDTO::new)
+                .toList();
     }
 
-    public List<Task> update(Task task) {
+    public List<TaskResponseDTO> update(Task task) {
         // Antes de atualizar, valida se a tarefa pertence mesmo ao usuário
         Task existingTask = taskRepository.findById(task.getId())
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
@@ -51,7 +55,7 @@ public class TaskService {
         return list();
     }
 
-    public List<Task> delete(Long id) {
+    public List<TaskResponseDTO> delete(Long id) {
         // Validação de segurança para impedir que deletem tarefas de outros
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
