@@ -1,10 +1,5 @@
-# To-Do List API – Desafio Zetta
 
 Esta é uma API REST para gerenciamento de tarefas personalizadas, construída com as versões mais recentes do ecossistema Spring.  
-O restante da documentação, com exemplos e script de criação pode ser encontrada em: 
-
-https://docs.google.com/document/d/1AfqVkl5_L8GXXgYawDdh4EqTCVFklAqYdVkWWZbBBrc/edit?usp=sharing
----
 
 ## Tecnologias e Versões
 
